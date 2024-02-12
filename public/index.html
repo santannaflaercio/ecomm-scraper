@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Demo Store</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <h1>Welcome to the Demo Store</h1>
+    <div id="products">
+        <!-- Products will be dynamically loaded here -->
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            // Simulating dynamic data loading
+            setTimeout(function () {
+                var products = [
+                    { name: "Product 1", price: "R$100" },
+                    { name: "Product 2", price: "R$200" },
+                    { name: "Product 3", price: "R$300" }
+                ];
+
+                var html = '';
+                for (var i = 0; i < products.length; i++) {
+                    html += '<h2>' + products[i].name + '</h2>';
+                    html += '<p>' + products[i].price + '</p>';
+                }
+
+                $('#products').html(html);
+            }, 2000);
+        });
+    </script>
+</body>
+
+</html>
