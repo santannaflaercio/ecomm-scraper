@@ -1,28 +1,28 @@
 name: Testes de Raspagem E-commerce 
 
-on:  # Disparadores do fluxo de trabalho (aqui usamos 'push')
+on:
   push: 
-    branches: [ main ]  # Executa os testes em pushes na branch 'main'
+    branches: [ main ]
 
 jobs:
   run-tests:
-    runs-on: ubuntu-latest  # Sistema operacional da máquina virtual
+    runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3   # Checkout do código do repositório
+      - uses: actions/checkout@v3
 
       - name: Setup Python
         uses: actions/setup-python@v3
         with:
-          python-version: '3.10'  # Versão do Python (ajuste)
+          python-version: '3.10'
 
       - name: Instalar Dependências
-        run: pip install -r requirements.txt  # Assumindo um arquivo requirements.txt
+        run: pip install -r requirements.txt
 
       - name: Configurar WebDriver
         uses: actions/setup-node@v3
         with:
-          node-version: '14'  # Ajuste  se necessário 
+          node-version: '14'
 
       - name: Iniciar Servidor HTTP
         run: python3 -m http.server --directory public/ &
