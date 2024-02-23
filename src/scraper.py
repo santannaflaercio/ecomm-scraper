@@ -2,23 +2,28 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
-import time
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
-# Webdriver configuration
-webdriver_service = Service(ChromeDriverManager().install())
-driver = webdriver.Chrome(service=webdriver_service)
+# Initialize the ChromeDriver service
+service = Service(ChromeDriverManager().install())
 
-# Navigate to the page
-driver.get("http://localhost:8000")
+# Use the ChromeDriver service to create a new WebDriver instance
+with webdriver.Chrome(service=service) as driver:
+    # Navigate to the target webpage
+    driver.get("http://localhost:8000")
 
-# Wait for dynamic content to load
-time.sleep(1)
+    # Wait until all elements with the CSS selector "#products > h2" are present on the page
+    WebDriverWait(driver, 10).until(
+        EC.presence_of_all_elements_located((By.CSS_SELECTOR, "#products > h2"))
+    )
 
-# Scrape the desired data
-products = driver.find_elements(By.CSS_SELECTOR, "#products > h2")
+    # Find all elements with the CSS selector "#products > h2"
+    products = driver.find_elements(By.CSS_SELECTOR, "#products > h2")
 
-for product in products:
-    print(product.text)
+    # Print the text of each product element
+    for product in products:
+        print(product.text)
 
-# Close the browser
-driver.quit()
+
+print("Scraping complete!")
